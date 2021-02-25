@@ -1,0 +1,469 @@
+// This is my attempt at the Hawaiian Pronunciation code challenge!
+// * Original code by savannah Smalley i just made some changes to it.
+// * First made (Feb. 12, 2021), Last edited (Feb. 21, 2021)
+// First Edited by me on Feb 23,2021
+
+
+public class HawaiianPronunciation {
+
+    public static void main(String[] args) {
+
+        while(true) {
+
+            //The static method "conversion()" is where the user input gets
+            // turned into phonetic spelling (or at least where I tried to
+            // do that)
+
+            conversion();
+            System.out.print("\n");
+            //Below is where the user tells us whether to repeat the code or not
+            String answer;
+            Scanner userInput = new Scanner(System.in);
+            System.out.print("Do you want to enter another word? Y/YES/N/NO ==> ");
+            answer = userInput.nextLine();
+            if(answer.contains("Y") || answer.contains("y")) {
+            }
+            else if(answer.contains("N") || answer.contains("n"))
+                break;
+        }
+    }
+    //Where the magic happens
+    //There is an issue with the wanted "invalid" outpout but i can't figure out how
+    private static void conversion()
+    {
+        String hawaiian;
+        Scanner inputDevice = new Scanner(System.in);
+        System.out.print("Enter a Hawaiian word to pronounce ==>");
+        hawaiian = inputDevice.nextLine();
+        char chNext;				// The letter after the current letter
+        char chPrev;				// The letter before the current letter
+        char []stringArray;
+        stringArray = hawaiian.toCharArray();
+        int wordLength = stringArray.length;
+        int i = 0;                       // The index of the current letter
+
+
+
+        while ( i < wordLength)  {   //while the letter is part of the word
+            char ch = stringArray[i];           //then the character "ch" refers to it's placement within the stringArray
+
+
+
+
+            if (i == 0 ) {			//if the placement is the first letter
+
+                chPrev = '0';	              //  Then we assign the value of 0 to the previous character (chPrev)
+            } else {						// ELSE, if the placement is NOT the first letter (not i == 0)
+                chPrev = stringArray[i-1];  // then chPrev means the literal previous character
+
+            }
+            if (i < (wordLength -1)  ) { // if it's not the last letter
+
+                chNext = stringArray[i+1]; // then the character AFTER the one focused on is called chNext (next character)
+            } else {
+                chNext = '0';				// ELSE, if it IS the last letter, recognize the next character as "0"
+            }
+
+
+
+            switch (ch) {  // Switch on the value of the letter pointed to by the current value of i
+
+
+
+
+                //vowels start here
+                case 'a': case 'A':            //  IN THE CASE OF A (or lowercase a)
+                    if (chNext == '0' ) {      		//if the next character is the last letter
+                        if (chPrev == '0' ) {            // if the next character is the first letter
+                            System.out.print("Ah");     	//then it capitalizes
+                        } else {							//else it is not capitalized
+                            System.out.print("ah");
+                        }
+                        i++;                        	 //and continues
+
+                    } else {							//if the next character is NOT last,
+                        if (chPrev =='0') {    	//if it is the FIRST character
+                            // Switch on the value of the next letter
+                            switch (chNext) {
+// as they have both been processed.
+                                case 'i', 'e' -> {
+                                    System.out.print("Eye");  // Depending on the value of next letter make
+                                    i++;                      // The correct change and advance the index for
+                                    i++;                      // to account for both the current and next letter
+                                }
+                                case 'o', 'u' -> {
+                                    System.out.print("Ow");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("Ah");
+                                    i++;
+                                }
+                            }
+
+                        } else {                             // Same logic as above but handles the processing
+                            // of the letters if the current letter is not the first
+                            switch (chNext) {
+                                case 'i', 'e' -> {
+                                    System.out.print("eye");
+                                    i++;
+                                    i++;
+                                }
+                                case 'o', 'u' -> {
+                                    System.out.print("ow");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("ah");
+                                    i++;
+                                }
+                            }
+
+                        }
+                        if (i < wordLength) {  // decide if a dash is needed
+                            System.out.print("-");                                  // The check to suppress a dash
+                        }                                                           // after the dash character ' failed
+                    }                                                               // and needs more work
+
+                    break;
+
+
+
+                case 'o': case 'O':
+                    if (chNext == '0' ) {
+                        if (chPrev == '0' ) {
+                            System.out.print("Oh");
+                        } else {
+                            System.out.print("oh");
+                        }
+                        i++;
+
+                    } else {
+                        if (chPrev =='0') {
+                            switch (chNext) {
+                                case 'i' -> {
+                                    System.out.print("Oy");
+                                    i++;
+                                    i++;
+                                }
+                                case 'u' -> {
+                                    System.out.print("Ow");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("Oh");
+                                    i++;
+                                }
+                            }
+
+                        } else {
+                            switch (chNext) {
+                                case 'i' -> {
+                                    System.out.print("oy");
+                                    i++;
+                                    i++;
+                                }
+                                case 'u' -> {
+                                    System.out.print("ow");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("oh");
+                                    i++;
+                                }
+                            }
+
+                        }
+                        if (i < wordLength) {
+                            System.out.print("-");
+                        }
+
+
+                    }
+
+                    break;
+
+
+
+
+                case 'e': case 'E':
+                    if (chNext == '0' ) {
+                        if (chPrev == '0' ) {
+                            System.out.print("Eh");
+                        } else {
+                            System.out.print("eh");
+                        }
+                        i++;
+
+                    } else {
+                        if (chPrev =='0') {
+                            switch (chNext) {
+                                case 'i' -> {
+                                    System.out.print("Ay");
+                                    i++;
+                                    i++;
+                                }
+                                case 'u' -> {
+                                    System.out.print("Eh-oo");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("Eh");
+                                    i++;
+                                }
+                            }
+
+                        } else {
+                            switch (chNext) {
+                                case 'i' -> {
+                                    System.out.print("ay");
+                                    i++;
+                                    i++;
+                                }
+                                case 'u' -> {
+                                    System.out.print("eh-oo");
+                                    i++;
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("eh");
+                                    i++;
+                                }
+                            }
+
+                        }
+
+                        if (i < wordLength) {
+                            System.out.print("-");
+                        }
+
+                    }
+
+                    break;
+
+
+
+
+                case 'i': case 'I':
+                    if (chNext == '0' ) {
+                        if (chPrev == '0' ) {
+                            System.out.print("Ee");
+                        } else {
+                            System.out.print("ee");
+                        }
+                        i++;
+
+                    } else {
+                        if (chPrev =='0') {
+                            if (chNext == 'u') {
+                                System.out.print("Ew");
+                                i++;
+                            } else {
+                                System.out.print("Ee");
+                            }
+
+                        } else {
+                            if (chNext == 'u') {
+                                System.out.print("ew");
+                                i++;
+                            } else {
+                                System.out.print("ee");
+                            }
+
+                        }
+                        i++;
+
+                        if (i < wordLength) {
+                            System.out.print("-");
+                        }
+
+                    }
+
+                    break;
+
+
+
+
+                case 'u': case 'U':
+                    if (chNext == '0' ) {
+                        if (chPrev == '0' ) {
+                            System.out.print("Oo");
+                        } else {
+                            System.out.print("oo");
+                        }
+                        i++;
+
+                    } else {
+                        if (chPrev =='0') {
+                            if (chNext == 'i') {
+                                System.out.print("Ooey");
+                                i++;
+                            } else {
+                                System.out.print("Oo");
+                            }
+
+                        } else {
+                            if (chNext == 'i') {
+                                System.out.print("ooey");
+                                i++;
+                            } else {
+                                System.out.print("oo");
+                            }
+
+                        }
+                        i++;
+
+                        if (i < wordLength) {
+                            System.out.print("-");
+                        }
+
+                    }
+
+                    break;
+
+                //consonants start here
+                case 'l': case 'L':
+                    if (chPrev == '0' ) {
+                        System.out.print("L");
+
+                    } else {
+                        System.out.print("l");
+
+                    }
+                    i++;
+                    break;
+
+
+                case 'p': case 'P':
+
+                    if (chPrev == '0' ) {
+                        System.out.print("P");
+
+                    } else {
+                        System.out.print("p");
+
+                    }
+                    i++;
+                    break;
+
+                case 'k': case 'K':
+
+                    if (chPrev == '0' ) {
+                        System.out.print("K");
+
+                    } else {
+                        System.out.print("k");
+
+                    }
+                    i++;
+                    break;
+
+                case 'h': case 'H':
+
+                    if (chPrev == '0' ) {
+                        System.out.print("H");
+
+                    } else {
+                        System.out.print("h");
+
+                    }
+                    i++;
+                    break;
+
+                case 'm': case 'M':
+
+                    if (chPrev == '0' ) {
+                        System.out.print("M");
+
+                    } else {
+                        System.out.print("m");
+
+                    }
+                    i++;
+                    break;
+
+
+                case 'n': case 'N':
+
+                    if (chPrev == '0' ) {
+                        System.out.print("N");
+
+                    } else {
+                        System.out.print("n");
+
+                    }
+                    i++;
+                    break;
+
+                case ' ':
+                    System.out.print(" ");
+
+                    i++;
+                    break;
+
+                case 'w':                       // This case is slightly different because the W requires
+                    if (chNext == '0' ) {       // you to evaluate the letter before instead of the next letter
+                        if (chPrev == '0' ) {
+                            System.out.print("Wah");
+                        } else {
+                            System.out.print("wah");
+                        }
+                        i++;
+
+                    } else {
+                        if (chPrev =='0') {
+                            if (chNext == 'i') {
+                                System.out.print("Wah");
+                                // the pronunciation of the w my change based on the previous letter
+                                // it is still processed as a single letter
+                            } else {
+                                System.out.print("wah");
+                            }
+                            i++;        // We are only advancing the index by one because unlike the vowels
+
+                        } else {
+                            switch (chPrev) {
+                                case 'i', 'e' -> {
+                                    System.out.print("vah");
+                                    i++;
+                                }
+                                default -> {
+                                    System.out.print("wah");
+                                    i++;
+                                }
+                            }
+
+                        }
+                        if (i < wordLength) {
+                            System.out.print("-");
+                        }
+
+                    }
+
+
+                    break;
+
+                case '\'':
+
+                    System.out.print("'");
+
+                    i++;
+                    break;
+
+                // Something I need to FIX: make invalid inputs come out as "Invalid" in the console
+                //maybe can do this using default statement?
+                //tried the default statement but couldn't figure out how to fix it.
+
+
+
+
+            }
+
+        }
+    }
+}
